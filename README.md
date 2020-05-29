@@ -15,19 +15,20 @@ A Gatsby.js Remark plugin that transform Typedoc symbol links (e.g. `[[symbol.pa
 
 This plugin just wraps [remark-typedoc-symbol-links](https://github.com/kamranayub/remark-typedoc-symbol-links) and passes the `options.typedoc` on your behalf using the sourced Typedoc Gatsby node(s).
 
-## Usage
-
-Install with dependencies:
+## Install
 
     npm install gatsby-source-typedoc gatsby-remark-typedoc-symbol-links --save-dev
 
-Then configure your `gatsby-config.js`:
+## Usage
+
+Configure your `gatsby-config.js`:
 
 ### Add `gatsby-source-typedoc`
 
 First, include `gatsby-source-typedoc` in your config to generate your Typedoc:
 
 ```js
+// In your gatsby-config.js
 module.exports = {
   plugins: [
     {
@@ -51,6 +52,7 @@ See [gatsby-source-typedoc](https://github.com/kamranayub/gatsby-source-typedoc)
 When using with `gatsby-transformer-remark`, include under `options.plugins`:
 
 ```js
+// In your gatsby-config.js
 module.exports = {
   plugins: [
     {
@@ -75,6 +77,7 @@ module.exports = {
 When using with `gatsby-plugin-mdx`, include under `options.gatsbyRemarkPlugins` config:
 
 ```js
+// In your gatsby-config.js
 module.exports = {
   plugins: [
     {
