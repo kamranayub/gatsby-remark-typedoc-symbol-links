@@ -1,12 +1,12 @@
 {
-  "name": "template-typescript-package",
+  "name": "gatsby-remark-typedoc-symbol-links",
   "version": "0.0.0-development",
-  "description": "A boilerplate repo for publishing typescript packages to npm",
+  "description": "A Gatsby.js Remark Markdown plugin that transform Typedoc symbol links through gatsby-source-typedoc",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "lint": "eslint \"./src/**/*.{js,ts,tsx}\"",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:watch": "jest --watchAll",
     "build": "tsc",
     "watch": "tsc -w",
@@ -15,12 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kamranayub/template-typescript-package.git"
+    "url": "https://github.com/kamranayub/gatsby-remark-typedoc-symbol-links.git"
   },
   "keywords": [
-    "TypeScript",
-    "Package",
-    "Starter"
+    "gatsby",
+    "gatsby-plugin",
+    "remark",
+    "typedoc",
+    "typescript"
   ],
   "author": {
     "name": "Kamran Ayub",
@@ -28,13 +30,13 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kamranayub/template-typescript-package/issues"
+    "url": "https://github.com/kamranayub/gatsby-remark-typedoc-symbol-links/issues"
   },
-  "homepage": "https://github.com/kamranayub/template-typescript-package#readme",
+  "homepage": "https://github.com/kamranayub/gatsby-remark-typedoc-symbol-links#readme",
   "husky": {
     "hooks": {
       "pre-commit": "yarn lint --fix && npm test",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "devDependencies": {
@@ -58,5 +60,12 @@
   "files": [
     "dist/**/*"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "remark-typedoc-symbol-links": "1.1.0",
+    "ts-mdast": "^1.0.0"
+  },
+  "peerDependencies": {
+    "gatsby-source-typedoc": ">=1.2.1",
+    "gatsby": ">=2.0.0"
+  }
 }
