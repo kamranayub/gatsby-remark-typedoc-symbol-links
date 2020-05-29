@@ -1,106 +1,117 @@
-# template-typescript-package
+# gatsby-remark-typedoc-symbol-links
 
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/kamranayub/template-typescript-package.svg)
-![GitHub repo size](https://img.shields.io/github/repo-size/kamranayub/template-typescript-package.svg)
-![npm](https://img.shields.io/npm/dw/template-typescript-package.svg)
-![npm](https://img.shields.io/npm/dm/template-typescript-package.svg)
-![npm](https://img.shields.io/npm/dy/template-typescript-package.svg)
-![npm](https://img.shields.io/npm/dt/template-typescript-package.svg)
-![NPM](https://img.shields.io/npm/l/template-typescript-package.svg)
-![npm](https://img.shields.io/npm/v/template-typescript-package.svg)
-![GitHub last commit](https://img.shields.io/github/last-commit/kamranayub/template-typescript-package.svg)
-![npm collaborators](https://img.shields.io/npm/collaborators/template-typescript-package.svg)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/kamranayub/gatsby-remark-typedoc-symbol-links.svg)
+![GitHub repo size](https://img.shields.io/github/repo-size/kamranayub/gatsby-remark-typedoc-symbol-links.svg)
+![npm](https://img.shields.io/npm/dw/gatsby-remark-typedoc-symbol-links.svg)
+![npm](https://img.shields.io/npm/dm/gatsby-remark-typedoc-symbol-links.svg)
+![npm](https://img.shields.io/npm/dy/gatsby-remark-typedoc-symbol-links.svg)
+![npm](https://img.shields.io/npm/dt/gatsby-remark-typedoc-symbol-links.svg)
+![NPM](https://img.shields.io/npm/l/gatsby-remark-typedoc-symbol-links.svg)
+![npm](https://img.shields.io/npm/v/gatsby-remark-typedoc-symbol-links.svg)
+![GitHub last commit](https://img.shields.io/github/last-commit/kamranayub/gatsby-remark-typedoc-symbol-links.svg)
+![npm collaborators](https://img.shields.io/npm/collaborators/gatsby-remark-typedoc-symbol-links.svg)
 
-A boilerplate repo for publishing typescript packages to npm
+A Gatsby.js Remark plugin that transform Typedoc symbol links (e.g. `[[symbol.path]]`). Designed to be used with [gatsby-source-typedoc](https://github.com/kamranayub/gatsby-source-typedoc) which creates Gatsby nodes for GraphQL that contain your Typedoc project but you could provide your own Typedoc project reflection using `fs.readSync`.
+
+This plugin just wraps [remark-typedoc-symbol-links](https://github.com/kamranayub/remark-typedoc-symbol-links) and passes the `options.typedoc` on your behalf using the sourced Typedoc Gatsby node(s).
 
 ## Usage
 
-Some notes on how to use this repo. Some day I'll hopefully automate the biggest part of this.
+Install with dependencies:
 
-### Clone the repo or [generate](https://github.com/kamranayub/template-typescript-package/generate) your repo:
+    npm install gatsby-source-typedoc gatsby-remark-typedoc-symbol-links --save-dev
 
-```shell script
-npx degit https://github.com/kamranayub/template-typescript-package my-new-package
+Then configure your `gatsby-config.js`:
+
+### Add `gatsby-source-typedoc`
+
+First, include `gatsby-source-typedoc` in your config to generate your Typedoc:
+
+```js
+module.exports = {
+  plugins: [
+    {
+      resolve: 'gatsby-source-typedoc',
+      options: {
+        src: [`${__dirname}/my-typescript-project/index.ts`],
+        typedoc: {
+          mode: 'modules',
+          tsconfig: `${__dirname}/my-typescript-project/tsconfig.json`,
+        },
+      },
+    },
+  ],
+}
 ```
 
-### Initialize the new project
+See [gatsby-source-typedoc](https://github.com/kamranayub/gatsby-source-typedoc) for complete set of options.
 
+### Markdown with `gatsby-transformer-remark`
 
-```shell script
-cd my-new-package
-yarn # to install the deps
-git init # to initialize a new Git repo
-# Manually create a remote repo and follow the instructions OR:
-hub create # Use this amazing tool called 'hub': https://github.com/github/hub
+When using with `gatsby-transformer-remark`, include under `options.plugins`:
+
+```js
+module.exports = {
+  plugins: [
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: 'gatsby-remark-typedoc-symbol-links',
+            options: {
+              /* provide options here */
+            },
+          },
+        ],
+      },
+    },
+  ],
+}
 ```
 
-#### Update meta data:
+### MDX with `gatsby-plugin-mdx`
 
-Update the following fields in `package.json`:
+When using with `gatsby-plugin-mdx`, include under `options.gatsbyRemarkPlugins` config:
 
-- name
-- description
-- repository
-- keywords
-- author
-- license
-- bugs
-- homepage
-
-Make sure to don't change the `version` property, versioning this package is handled by `semantic-release`!
-
-#### Update README
-
-Basically you want to search/replace the repo and package name to match your repo/package name and add any new info.
-
-### Getting the GitHub and NPM tokens
-
-#### GitHub
-
-- Log in to GitHub.
-- Navigate to [https://github.com/settings/tokens](https://github.com/settings/tokens).
-- Click `Generate new token`.
-- Fill in the `note` field so you remember what the token is for.
-- Select the `write:packages` scope. This will also enable the `repo` and `read:packages` scopes.
-- Click `Generate token`.
-- Copy the code and store it to use in the next step.
-
-#### NPM
-
-- Log in to NPM.
-- Click the Tokens link from the top-right menu.
-- Click Create New Token
-- Select `Read and Publish` then click `Create Token`.
-- Copy the code and store it to use in the next step.
-
-### Setting the GitHub and NPM tokens
-
-- Open your new repo on GitHub.
-- Navigate to `Settings` then `Secrets`.
-- Click `Add a new secret`.
-- Add the `GH_TOKEN` secret with the GitHub token.
-- Click `Add a new secret` again.
-- Add the `NPM_TOKEN` secret with the NPM token.
-
-Your repo is now set up to publish packages to NPM and the GitHub Package Registry.
-
-### Write your code
-
-Write your amazing new code and make sure to update the tests!
-
-You can run `yarn lint` and `yarn test` to check if your project will pass CI.
-
-### Publish it
-
-With a `git push` you will create a new version and publish it to `npm`.
-
-```shell script
-git commit -m "feat: initial commit"
-git push origin master 
+```js
+module.exports = {
+  plugins: [
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        gatsbyRemarkPlugins: [
+          {
+            resolve: 'gatsby-remark-typedoc-symbol-links',
+            options: {
+              /* provide options here */
+            },
+          },
+        ],
+      },
+    },
+  ],
+}
 ```
 
-## Credits
+## Options
 
-Forked from [template-typescript-package](https://github.com/beeman/template-typescript-package) with a few changes.
+### `options.id` (optional, default: `default`)
 
-## MIT License
+This corresponds to the [gatsby-source-typedoc](https://github.com/kamranayub/gatsby-source-typedoc) `id` option. This allows you to source from multiple Typedoc projects. By default, the ID is `default` and if you need more, they should be unique.
+
+### Options from remark-typedoc-symbol-links
+
+The rest of the options (excluding `options.typedoc` which is sourced for you) are documented in [remark-typedoc-symbol-links](https://github.com/kamranayub/remark-typedoc-symbol-links), they are passed through.
+
+## Demo / Example
+
+This was developed for use on the [excalibur.js](https://excaliburjs.com) project and is used in the documentation site, see [the Gatsby config](https://github.com/excaliburjs/excaliburjs.github.io/blob/site/gatsby-config.js).
+
+## Contributing
+
+See [Contributing](CONTRIBUTING.md) and the [Code of Conduct](CODE_OF_CONDUCT.md)
+
+## License
+
+MIT

@@ -1,7 +1,7 @@
 {
-  "name": "template-typescript-package",
+  "name": "gatsby-remark-typedoc-symbol-links",
   "version": "0.0.0-development",
-  "description": "A boilerplate repo for publishing typescript packages to npm",
+  "description": "A Gatsby.js Remark Markdown plugin that transform Typedoc symbol links through gatsby-source-typedoc",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -15,12 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kamranayub/template-typescript-package.git"
+    "url": "https://github.com/kamranayub/gatsby-remark-typedoc-symbol-links.git"
   },
   "keywords": [
-    "TypeScript",
-    "Package",
-    "Starter"
+    "gatsby",
+    "gatsby-plugin",
+    "remark",
+    "typedoc",
+    "typescript"
   ],
   "author": {
     "name": "Kamran Ayub",
@@ -28,9 +30,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kamranayub/template-typescript-package/issues"
+    "url": "https://github.com/kamranayub/gatsby-remark-typedoc-symbol-links/issues"
   },
-  "homepage": "https://github.com/kamranayub/template-typescript-package#readme",
+  "homepage": "https://github.com/kamranayub/gatsby-remark-typedoc-symbol-links#readme",
   "husky": {
     "hooks": {
       "pre-commit": "yarn lint --fix && npm test",
