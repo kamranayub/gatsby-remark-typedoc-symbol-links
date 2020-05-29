@@ -65,6 +65,7 @@
     "ts-mdast": "^1.0.0"
   },
   "peerDependencies": {
-    "gatsby-source-typedoc": ">=1.2.1"
+    "gatsby-source-typedoc": ">=1.2.1",
+    "gatsby": ">=2.0.0"
   }
 }
