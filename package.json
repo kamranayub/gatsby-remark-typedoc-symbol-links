@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "lint": "eslint \"./src/**/*.{js,ts,tsx}\"",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:watch": "jest --watchAll",
     "build": "tsc",
     "watch": "tsc -w",
@@ -34,7 +34,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "yarn lint --fix && npm test",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "devDependencies": {
@@ -58,5 +58,8 @@
   "files": [
     "dist/**/*"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "remark-typedoc-symbol-links": "1.1.0",
+    "ts-mdast": "^1.0.0"
+  }
 }
