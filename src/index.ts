@@ -20,7 +20,7 @@ interface TypedocNode extends Node {
 
 export = async ({ markdownAST, getNodesByType }: RemarkPluginArgs, pluginOptions: PluginOptions) => {
   const options = Object.assign({}, DEFAULT_OPTIONS, pluginOptions)
-  const typedocNodes = getNodesByType<TypedocNode>('TypeDoc')
+  const typedocNodes = getNodesByType<TypedocNode>('Typedoc')
 
   if (typedocNodes && typedocNodes.length) {
     typedocNodes.forEach((node) => {
