@@ -5,7 +5,7 @@ import { PluginOptions } from './types'
 
 interface RemarkPluginArgs {
   markdownAST: Root
-  getNodes: () => Node[]
+  getNodesByType: <TNode = Node>(type: string) => TNode[]
 }
 
 /**
@@ -18,17 +18,9 @@ interface TypedocNode extends Node {
   }
 }
 
-/**
- * Whether or not the given node is a Typedoc node
- * @param n Node to check
- */
-function isTypedocNode(n: Node): n is TypedocNode {
-  return n.internal && (n.internal as any).type === 'Typedoc'
-}
-
-export = async ({ markdownAST, getNodes /*, getNodesByType */ }: RemarkPluginArgs, pluginOptions: PluginOptions) => {
+export = async ({ markdownAST, getNodesByType }: RemarkPluginArgs, pluginOptions: PluginOptions) => {
   const options = Object.assign({}, DEFAULT_OPTIONS, pluginOptions)
-  const typedocNodes = getNodes().filter(isTypedocNode)
+  const typedocNodes = getNodesByType<TypedocNode>('TypeDoc')
 
   if (typedocNodes && typedocNodes.length) {
     typedocNodes.forEach((node) => {
